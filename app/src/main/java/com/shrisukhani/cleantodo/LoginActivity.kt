@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.facebook.litho.ComponentContext
 import com.facebook.litho.LithoView
 import com.shrisukhani.cleantodo.components.TaskListItemComponent
-import com.shrisukhani.cleantodo.components.TaskListItemComponent2
 import com.shrisukhani.cleantodo.components.TaskListItemComponentSpec
 import com.shrisukhani.cleantodo.model.Task
 import com.shrisukhani.cleantodo.model.TaskPriority

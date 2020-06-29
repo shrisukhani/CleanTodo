@@ -24,7 +24,7 @@ import java.util.*
 class TaskListItemComponentSpec {
 
     companion object {
-        private val PRIORITY_BAR_WIDTH_DIP = 24f
+        private val PRIORITY_BAR_WIDTH_DIP = 18f
         private val TASK_LIST_ITEM_ROW_HEIGHT_DIP = 60f
         private val TITLE_TEXT_SIZE_SP = 22f
 
