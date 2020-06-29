@@ -1,11 +1,7 @@
 package com.shrisukhani.cleantodo.components
 
 import android.graphics.Color
-import android.os.Build
 import android.text.TextUtils
-import android.text.format.DateFormat
-import android.text.format.DateUtils
-import android.util.TimeUtils
 import com.facebook.litho.*
 import com.facebook.litho.annotations.LayoutSpec
 import com.facebook.litho.annotations.OnCreateLayout
@@ -20,7 +16,6 @@ import com.shrisukhani.cleantodo.R
 import com.shrisukhani.cleantodo.model.Task
 import com.shrisukhani.cleantodo.model.TaskPriority
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 @LayoutSpec
 class TaskListItemComponentSpec {
@@ -91,6 +86,7 @@ class TaskListItemComponentSpec {
                             .heightDip(ARROW_ICON_HEIGHT_WIDTH_DIP)
                             .widthDip(ARROW_ICON_HEIGHT_WIDTH_DIP)
                             .alignSelf(YogaAlign.CENTER)
+                            .clickHandler(TaskListItemComponent.onClickDetailViewIcon(c))
                             .marginDip(YogaEdge.RIGHT, CELL_CONTENT_HORIZONTAL_MARGIN_DIP)
                             .build())
                 .build()
@@ -105,6 +101,12 @@ class TaskListItemComponentSpec {
         @JvmStatic
         @OnEvent(ClickEvent::class)
         fun onClickDueDate(c: ComponentContext, @Prop task: Task) {
+            // @TODO: Implement later
+        }
+
+        @JvmStatic
+        @OnEvent(ClickEvent::class)
+        fun onClickDetailViewIcon(c: ComponentContext, @Prop task: Task) {
             // @TODO: Implement later
         }
 
