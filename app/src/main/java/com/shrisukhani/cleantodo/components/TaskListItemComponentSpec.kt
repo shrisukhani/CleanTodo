@@ -11,6 +11,7 @@ import com.facebook.litho.annotations.LayoutSpec
 import com.facebook.litho.annotations.OnCreateLayout
 import com.facebook.litho.annotations.OnEvent
 import com.facebook.litho.annotations.Prop
+import com.facebook.litho.widget.Image
 import com.facebook.litho.widget.Text
 import com.facebook.yoga.YogaAlign
 import com.facebook.yoga.YogaEdge
@@ -31,6 +32,7 @@ class TaskListItemComponentSpec {
         private val TITLE_TEXT_SIZE_SP = 22f
         private val SECONDARY_TEXT_SIZE_SP = 16f
         private val SECOND_ROW_COMPONENT_MAX_WIDTH_DIP = 160f
+        private val ARROW_ICON_HEIGHT_WIDTH_DIP = 30f
 
         @JvmStatic
         @OnCreateLayout
@@ -82,6 +84,15 @@ class TaskListItemComponentSpec {
                                         .clickHandler(TaskListItemComponent.onClickDueDate(c))
                                         .ellipsize(TextUtils.TruncateAt.END)
                                         .maxTextWidthDip(SECOND_ROW_COMPONENT_MAX_WIDTH_DIP))))
+                    .child(
+                        Image.create(c)
+                            .drawableRes(R.drawable.ic_arrow_right_filled)
+                            .paddingDip(YogaEdge.ALL, 2f)
+                            .heightDip(ARROW_ICON_HEIGHT_WIDTH_DIP)
+                            .widthDip(ARROW_ICON_HEIGHT_WIDTH_DIP)
+                            .alignSelf(YogaAlign.CENTER)
+                            .marginDip(YogaEdge.RIGHT, CELL_CONTENT_HORIZONTAL_MARGIN_DIP)
+                            .build())
                 .build()
         }
 
