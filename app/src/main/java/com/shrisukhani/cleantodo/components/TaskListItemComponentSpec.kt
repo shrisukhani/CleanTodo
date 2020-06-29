@@ -9,6 +9,7 @@ import android.util.TimeUtils
 import com.facebook.litho.*
 import com.facebook.litho.annotations.LayoutSpec
 import com.facebook.litho.annotations.OnCreateLayout
+import com.facebook.litho.annotations.OnEvent
 import com.facebook.litho.annotations.Prop
 import com.facebook.litho.widget.Text
 import com.facebook.yoga.YogaAlign
@@ -26,23 +27,29 @@ class TaskListItemComponentSpec {
     companion object {
         private val PRIORITY_BAR_WIDTH_DIP = 18f
         private val TASK_LIST_ITEM_ROW_HEIGHT_DIP = 60f
+        private val CELL_CONTENT_HORIZONTAL_MARGIN_DIP = 8f
         private val TITLE_TEXT_SIZE_SP = 22f
+        private val SECONDARY_TEXT_SIZE_SP = 16f
+        private val SECOND_ROW_COMPONENT_MAX_WIDTH_DIP = 160f
 
         @JvmStatic
         @OnCreateLayout
         fun onCreateLayout(c: ComponentContext, @Prop task: Task): Component {
             val date = task.dueDate?.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")) ?: "Set a due date"
+            val name = task.title
+            val parentListName = task.parentListName ?: "Choose list"
+
             return Row.create(c)
                 .heightDip(TASK_LIST_ITEM_ROW_HEIGHT_DIP)
                 .child(getPriorityComponent(c, task.priority))
                 .child(
                     Column.create(c)
-                        .marginDip(YogaEdge.HORIZONTAL, 8f)
+                        .marginDip(YogaEdge.HORIZONTAL, CELL_CONTENT_HORIZONTAL_MARGIN_DIP)
                         .justifyContent(YogaJustify.SPACE_AROUND)
                         .flexGrow(1f)
                         .child(
                             Text.create(c)
-                                .text(task.title)
+                                .text(name)
                                 .textSizeSp(TITLE_TEXT_SIZE_SP)
                                 .ellipsize(TextUtils.TruncateAt.END)
                                 .maxLines(1)
@@ -52,21 +59,42 @@ class TaskListItemComponentSpec {
                                 .alignContent(YogaAlign.SPACE_AROUND)
                                 .child(
                                     Text.create(c)
-                                        .text(task.parentListName ?: "Moving to the Bay")
-                                        .textSizeSp(16f)
+                                        .text(parentListName)
+                                        .textSizeSp(SECONDARY_TEXT_SIZE_SP)
                                         .textColor(c.getColor(R.color.cyan))
+                                        .clickHandler(TaskListItemComponent.onClickParentListName(c))
                                         .maxLines(1)
                                         .ellipsize(TextUtils.TruncateAt.END)
-                                        .maxTextWidthDip(160f))
+                                        .maxTextWidthDip(SECOND_ROW_COMPONENT_MAX_WIDTH_DIP))
+                                .child(
+                                    Text.create(c)
+                                        .text(" | ")
+                                        .textSizeSp(SECONDARY_TEXT_SIZE_SP)
+                                        .textColor(c.getColor(R.color.cyan))
+                                        .maxLines(1)
+                                        .ellipsize(TextUtils.TruncateAt.END))
                                 .child(
                                     Text.create(c)
                                         .text(date)
-                                        .textSizeSp(16f)
+                                        .textSizeSp(SECONDARY_TEXT_SIZE_SP)
                                         .maxLines(1)
                                         .textColor(c.getColor(R.color.cyan))
+                                        .clickHandler(TaskListItemComponent.onClickDueDate(c))
                                         .ellipsize(TextUtils.TruncateAt.END)
-                                        .maxTextWidthDip(160f))))
+                                        .maxTextWidthDip(SECOND_ROW_COMPONENT_MAX_WIDTH_DIP))))
                 .build()
+        }
+
+        @JvmStatic
+        @OnEvent(ClickEvent::class)
+        fun onClickParentListName(c: ComponentContext, @Prop task: Task) {
+            // @TODO: Implement later
+        }
+
+        @JvmStatic
+        @OnEvent(ClickEvent::class)
+        fun onClickDueDate(c: ComponentContext, @Prop task: Task) {
+            // @TODO: Implement later
         }
 
         @JvmStatic
